@@ -2,12 +2,19 @@ import numpy as np
 import librosa
 import csv
 
-filename = '6.wav'
+import sys
+
+print 'Argument List:', str(sys.argv)
+filename = sys.argv[1]
+songname = filename[:-4]
+
+
+# filename = '6.wav'
 
 steps = 0
 def tick():
   steps += 1
-  print(steps)
+  print('tick {0}'.format(steps))
 
 tick()
 
@@ -41,19 +48,19 @@ tick()
 beat_features = np.vstack([beat_chroma, beat_mfcc_delta])
 tick()
 
-outfile = 'chromagram.csv'
+outfile = '{0}_chromagram.csv'.format(songname)
 chroma2 = np.transpose(chromagram)
 with open(outfile, 'wb') as f:
     writer = csv.writer(f)
     writer.writerows(chroma2)
 
-outfile = 'beat_chroma.csv'
+outfile = '{0}_beat_chroma.csv'.format(songname)
 beatchroma2 = np.transpose(beat_chroma)
 with open(outfile, 'wb') as f:
     writer = csv.writer(f)
     writer.writerows(beatchroma2)
  
-outfile = 'beat_features.csv'
+outfile = '{0}_beat_features.csv'.format(songname)
 beatfeatures2 = np.transpose(beat_features)
 with open(outfile, 'wb') as f:
     writer = csv.writer(f)
